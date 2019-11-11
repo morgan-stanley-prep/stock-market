@@ -5,17 +5,24 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="stock_price_table")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StockPrice {
 	
 	@Id
 	@Column(name="stock_name")
 	private String stockName;
 	
-	@Column(name="timestamp")
+	@UpdateTimestamp
+	@Column(name="timestamp", updatable = true)
 	private Timestamp timestamp;
 	
 	@Column(name="price")
@@ -24,6 +31,7 @@ public class StockPrice {
 	public StockPrice() {
 		
 	}
+	
 
 	public StockPrice(String stockName, float price) {
 		this.stockName = stockName;

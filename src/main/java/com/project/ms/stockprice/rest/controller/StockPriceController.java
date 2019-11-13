@@ -1,7 +1,13 @@
 package com.project.ms.stockprice.rest.controller;
 
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +30,11 @@ public class StockPriceController {
 	@GetMapping("/stocks")
 	public List<StockPrice> getStocks(){
 		return stockPriceService.getStocks();
+	}
+	
+	@GetMapping("/port")
+	public int getPortNo(HttpServletRequest req){
+		return req.getLocalPort();
 	}
 	
 	@GetMapping("/price/{stockName}")

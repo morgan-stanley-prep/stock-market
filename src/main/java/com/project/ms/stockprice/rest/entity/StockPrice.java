@@ -1,5 +1,6 @@
 package com.project.ms.stockprice.rest.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -15,8 +16,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="stock_price_table")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class StockPrice {
+public class StockPrice implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3936098799162312502L;
+
 	@Id
 	@Column(name="stock_name")
 	private String stockName;

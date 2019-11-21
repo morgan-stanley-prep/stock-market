@@ -12,4 +12,6 @@ public interface StockPriceDAO {
 	public float getLatestPrice(String stockName);
 	public List<StockPrice> getStocks();
 	public StockPrice saveOrUpdateStock(StockPrice theStock);
+	public StockPrice deleteStock(String stockName);
+	public StockPrice getStock(String stockName);
 }

@@ -24,22 +24,27 @@ public class StockPriceDAOImpl implements StockPriceDAO{
 	}
 	
 	@Override
-	public float getLatestPrice(String stockName) {
-		
+	public StockPrice getStock(String stockName) {
 		Session session = getSession();
-		
+
 		Query<StockPrice> query = session.createQuery("from StockPrice s where UPPER(s.stockName)=UPPER(:stockName)");
 		query.setParameter("stockName", stockName);
-		
+
 		StockPrice stockPrice = query.getSingleResult();
-		
+
 		if(stockPrice==null) {
 			throw new StockNotFoundException("Stock not found");
 		}
-		
-		return stockPrice.getPrice();
+
+		return stockPrice;
 	}
 	
+	@Override
+	public float getLatestPrice(String stockName) {
+		return getStock(stockName).getPrice();
+	}
+	
+	@Override
 	public List<StockPrice> getStocks(){
 		
 		List<StockPrice> listStockPrice = null;
@@ -55,6 +60,7 @@ public class StockPriceDAOImpl implements StockPriceDAO{
 		
 	}
 	
+	@Override
 	public StockPrice saveOrUpdateStock(StockPrice theStock) {
 		
 		//getCurrent session
@@ -63,5 +69,20 @@ public class StockPriceDAOImpl implements StockPriceDAO{
 		session.saveOrUpdate(theStock);
 		
 		return theStock;
+	}
+	
+	@Override
+	public StockPrice deleteStock(String stockName) {
+		Session session = getSession();
+		StockPrice stock = getStock(stockName);
+		if(stock==null) {
+			throw new StockNotFoundException("Stock not found");
+		}
+		Query theQuery = 
+				session.createQuery("delete from StockPrice s where UPPER(s.stockName)=UPPER(:stock_Name)");
+		theQuery.setParameter("stock_Name", stockName);
+		
+		theQuery.executeUpdate();
+		return stock;
 	}
 }

@@ -1,15 +1,14 @@
 package com.project.ms.stockprice.rest.controller;
-
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.UnknownHostException;
-import java.sql.Timestamp;
-import java.util.List;
-
-import javax.servlet.ServletRequest;
+//
+//import java.net.InetAddress;
+//import java.net.ServerSocket;
+//import java.net.UnknownHostException;
+//import java.sql.Timestamp;
+//import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +36,19 @@ public class StockPriceController {
 		return req.getLocalPort();
 	}
 	
-	@GetMapping("/price/{stockName}")
+	@GetMapping("/stocks/{stockName}")
+	public StockPrice getStock(@PathVariable("stockName") String stockName) {
+		return stockPriceService.getStock(stockName);
+	}
+	
+	@GetMapping("stocks/price/{stockName}")
 	public float getStockLatestPrice(@PathVariable("stockName") String stockName) {
 		return stockPriceService.getLatestPrice(stockName);
+	}
+	
+	@DeleteMapping("/stocks/{stockName}")
+	public StockPrice deleteStock(@PathVariable("stockName") String stockName) {
+		return stockPriceService.deleteStock(stockName);
 	}
 	
 	@PostMapping("/stocks")

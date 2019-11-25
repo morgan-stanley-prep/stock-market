@@ -18,8 +18,8 @@ public class StockPriceServiceImpl implements StockPriceService {
 	@Autowired
 	private StockPriceDAO stockPriceDAO;
 	
-	@Cacheable(value="stocksCache",key="#stockName",unless="#result==null")
-//	@Transactional
+	//@Cacheable(value="stocksCache",key="#stockName",unless="#result==null")
+	@Transactional
 	public float getLatestPrice(String stockName) {
 		return stockPriceDAO.getLatestPrice(stockName);
 		

@@ -9,28 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity
-@Table(name="stock_price_table")
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class StockPrice implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3936098799162312502L;
 
-	@Id
-	@Column(name="stock_name")
 	private String stockName;
 	
-	@UpdateTimestamp
-	@Column(name="timestamp", updatable = true)
+	
 	private Timestamp timestamp;
 	
-	@Column(name="price")
+	
 	private float price;
 	
 	public StockPrice() {

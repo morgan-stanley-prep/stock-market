@@ -2,9 +2,11 @@ package com.project.ms.stockprice.rest.dao;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Repository;
 
-import com.project.ms.stockprice.rest.entity.StockPrice;
+import com.hazelcast.withzookeeper.entities.StockPrice;
+
 
 @Repository
 public interface StockPriceDAO {
